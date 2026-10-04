@@ -179,4 +179,36 @@
     background: #10b981;
     color: #071a13;
   }
+
+  /* Focus-visible — clear, on-brand keyboard focus ring */
+  :focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+
+  /* Keep focus ring from showing on mouse clicks */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+}
+
+/* ============================================
+   Global reduced-motion safety net
+   Applies to CSS transitions AND animations.
+   GSAP respects prefersReducedMotion() separately.
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }

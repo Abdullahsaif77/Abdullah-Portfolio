@@ -1,0 +1,220 @@
+"use client";
+
+import { useRef } from "react";
+import Link from "next/link";
+import { ArrowDownRight, ArrowUpRight, Mail } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+import { prefersReducedMotion } from "@/lib/animations";
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
+
+// Lucide v1 removed all brand icons (Github, Linkedin, etc.) for trademark
+// reasons. Simple Icons has also removed some. Inline the official paths so
+// they can never break on a dependency upgrade.
+function GithubIcon({ size = 18, className }: { size?: number; className?: string }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+    </svg>
+  );
+}
+
+function LinkedinIcon({ size = 18, className }: { size?: number; className?: string }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+    </svg>
+  );
+}
+
+export function Contact() {
+  const container = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      if (prefersReducedMotion()) {
+        return;
+      }
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: container.current,
+          start: "top 78%",
+          once: true,
+        },
+        defaults: {
+          ease: "power3.out",
+        },
+      });
+
+      tl.from(".contact-header", {
+        y: 25,
+        opacity: 0,
+        duration: 0.7,
+      })
+        .from(
+          ".contact-title-line",
+          {
+            y: 70,
+            opacity: 0,
+            duration: 0.9,
+            stagger: 0.12,
+          },
+          "-=0.35",
+        )
+        .from(
+          ".contact-description",
+          {
+            y: 25,
+            opacity: 0,
+            duration: 0.7,
+          },
+          "-=0.45",
+        )
+        .from(
+          ".contact-email",
+          {
+            y: 25,
+            opacity: 0,
+            duration: 0.7,
+          },
+          "-=0.4",
+        )
+        .from(
+          ".contact-links",
+          {
+            y: 20,
+            opacity: 0,
+            duration: 0.6,
+          },
+          "-=0.4",
+        );
+    },
+    { scope: container },
+  );
+
+  return (
+    <section
+      ref={container}
+      id="contact"
+      className="relative overflow-hidden px-6 py-32 sm:px-8 lg:px-12 lg:py-44"
+    >
+      {/* Ambient background — static, not animated */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-1/2 size-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/10 blur-[140px]"
+      />
+
+      <div className="relative mx-auto max-w-7xl">
+        <div className="contact-header flex items-center gap-4">
+          <span className="font-mono text-xs text-primary">04</span>
+
+          <span className="h-px w-10 bg-primary/50" />
+
+          <span className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
+            Let&apos;s connect
+          </span>
+        </div>
+
+        <div className="mt-10 max-w-6xl">
+          <h2 className="font-heading text-[clamp(3.5rem,8vw,8rem)] font-semibold leading-[0.88] tracking-[-0.065em]">
+            <span className="contact-title-line block">Let&apos;s build</span>
+            <span className="contact-title-line block text-muted-foreground">
+              something meaningful.
+            </span>
+          </h2>
+        </div>
+
+        <div className="mt-14 grid gap-12 lg:grid-cols-[1fr_auto] lg:items-end">
+          <div>
+            <p className="contact-description max-w-xl text-base leading-8 text-muted-foreground sm:text-lg">
+              I&apos;m open to software engineering opportunities, freelance projects, and
+              collaborations where I can build useful, well-crafted software.
+            </p>
+
+            <a
+              href="mailto:abdullahkips75@gmail.com"
+              className="contact-email mt-8 inline-flex items-center gap-3 text-base font-semibold transition-colors hover:text-primary"
+            >
+              <Mail size={18} />
+              abdullahkips75@gmail.com
+              <ArrowUpRight size={17} />
+            </a>
+          </div>
+
+          <ArrowDownRight
+            aria-hidden="true"
+            className="hidden size-20 text-primary/60 lg:block"
+            strokeWidth={1}
+          />
+        </div>
+
+        <div className="contact-links mt-20 grid border-y border-border/60 sm:grid-cols-3">
+          <Link
+            href="https://github.com/Abdullahsaif77"
+            target="_blank"
+            rel="noreferrer"
+            className="group flex items-center justify-between border-b border-border/60 py-6 transition-colors hover:text-primary sm:border-b-0 sm:border-r sm:pr-8"
+          >
+            <span className="flex items-center gap-3">
+              <GithubIcon size={18} />
+              GitHub
+            </span>
+
+            <ArrowUpRight
+              size={16}
+              className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1"
+            />
+          </Link>
+
+          <Link
+            href="https://www.linkedin.com/in/abdullah-jutt7"
+            target="_blank"
+            rel="noreferrer"
+            className="group flex items-center justify-between border-b border-border/60 py-6 transition-colors hover:text-primary sm:border-b-0 sm:px-8 sm:border-r"
+          >
+            <span className="flex items-center gap-3">
+              <LinkedinIcon size={18} />
+              LinkedIn
+            </span>
+
+            <ArrowUpRight
+              size={16}
+              className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1"
+            />
+          </Link>
+
+          <Link
+            href="#top"
+            className="group flex items-center justify-between py-6 transition-colors hover:text-primary sm:pl-8"
+          >
+            <span>Back to top</span>
+
+            <ArrowUpRight
+              size={16}
+              className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1"
+            />
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}

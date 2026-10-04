@@ -23,19 +23,19 @@ const jetBrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Abdullah Saif | Software Engineer",
+    default: "Abdullah jutt | Software Engineer",
     template: "%s | Abdullah Saif",
   },
   description:
-    "Abdullah Saif is a software engineer building modern web applications, mobile apps, and business-focused software.",
-  applicationName: "Abdullah Saif Portfolio",
+    "Abdullah jutt is a software engineer building modern web applications, mobile apps, and business-focused software.",
+  applicationName: "Abdullah jutt Portfolio",
   metadataBase: new URL("https://your-domain.com"),
   openGraph: {
     type: "website",
-    title: "Abdullah Saif | Software Engineer",
+    title: "Abdullah jutt | Software Engineer",
     description:
       "Explore Abdullah Saif's software engineering projects, experience, and technical work.",
-    siteName: "Abdullah Saif Portfolio",
+    siteName: "Abdullah jutt Portfolio",
   },
   robots: {
     index: true,
