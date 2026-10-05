@@ -14,7 +14,7 @@ type RevealOptions = {
   start?: string;
 };
 
-export function revealOnScroll(element: gsap.TweenTarget, options: RevealOptions = {}) {
+export function revealOnScroll(element: gsap.DOMTarget | string, options: RevealOptions = {}) {
   if (prefersReducedMotion()) {
     return;
   }
