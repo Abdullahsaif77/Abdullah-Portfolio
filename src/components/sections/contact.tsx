@@ -10,9 +10,6 @@ import { prefersReducedMotion } from "@/lib/animations";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-// Lucide v1 removed all brand icons (Github, Linkedin, etc.) for trademark
-// reasons. Simple Icons has also removed some. Inline the official paths so
-// they can never break on a dependency upgrade.
 function GithubIcon({ size = 18, className }: { size?: number; className?: string }) {
   return (
     <svg
@@ -89,13 +86,10 @@ export function Contact() {
           },
           "-=0.45",
         )
-        .from(
+        .fromTo(
           ".contact-email",
-          {
-            y: 25,
-            opacity: 0,
-            duration: 0.7,
-          },
+          { y: 25, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.7, clearProps: "opacity" },
           "-=0.4",
         )
         .from(
@@ -150,13 +144,22 @@ export function Contact() {
               collaborations where I can build useful, well-crafted software.
             </p>
 
+            {/* EMAIL — primary contact action */}
             <a
               href="mailto:abdullahkips75@gmail.com"
-              className="contact-email mt-8 inline-flex items-center gap-3 text-base font-semibold transition-colors hover:text-primary"
+              className="contact-email group mt-10 inline-flex items-center gap-3 rounded-full border border-primary/30 bg-primary/5 px-6 py-4 font-heading text-lg font-semibold tracking-[-0.02em] text-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary hover:bg-primary/10 hover:text-primary hover:shadow-[0_0_40px_-8px_var(--color-primary)] sm:gap-4 sm:px-7 sm:py-5 sm:text-2xl"
             >
-              <Mail size={18} />
-              abdullahkips75@gmail.com
-              <ArrowUpRight size={17} />
+              <Mail
+                size={20}
+                className="shrink-0 text-primary transition-transform duration-300 group-hover:scale-110 sm:size-6"
+              />
+
+              <span className="break-all">abdullahkips75@gmail.com</span>
+
+              <ArrowUpRight
+                size={20}
+                className="shrink-0 text-primary transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 sm:size-6"
+              />
             </a>
           </div>
 
@@ -172,7 +175,7 @@ export function Contact() {
             href="https://github.com/Abdullahsaif77"
             target="_blank"
             rel="noreferrer"
-            className="group flex items-center justify-between border-b border-border/60 py-6 transition-colors hover:text-primary sm:border-b-0 sm:border-r sm:pr-8"
+            className="group flex items-center justify-between border-b border-border/60 py-6 transition-all duration-300 hover:-translate-y-0.5 hover:text-primary sm:border-b-0 sm:border-r sm:pr-8"
           >
             <span className="flex items-center gap-3">
               <GithubIcon size={18} />
@@ -181,7 +184,7 @@ export function Contact() {
 
             <ArrowUpRight
               size={16}
-              className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1"
+              className="transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1"
             />
           </Link>
 
@@ -189,7 +192,7 @@ export function Contact() {
             href="https://www.linkedin.com/in/abdullah-jutt7"
             target="_blank"
             rel="noreferrer"
-            className="group flex items-center justify-between border-b border-border/60 py-6 transition-colors hover:text-primary sm:border-b-0 sm:px-8 sm:border-r"
+            className="group flex items-center justify-between border-b border-border/60 py-6 transition-all duration-300 hover:-translate-y-0.5 hover:text-primary sm:border-b-0 sm:border-r sm:px-8"
           >
             <span className="flex items-center gap-3">
               <LinkedinIcon size={18} />
@@ -198,19 +201,19 @@ export function Contact() {
 
             <ArrowUpRight
               size={16}
-              className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1"
+              className="transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1"
             />
           </Link>
 
           <Link
             href="#top"
-            className="group flex items-center justify-between py-6 transition-colors hover:text-primary sm:pl-8"
+            className="group flex items-center justify-between py-6 transition-all duration-300 hover:-translate-y-0.5 hover:text-primary sm:pl-8"
           >
             <span>Back to top</span>
 
             <ArrowUpRight
               size={16}
-              className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1"
+              className="transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1"
             />
           </Link>
         </div>

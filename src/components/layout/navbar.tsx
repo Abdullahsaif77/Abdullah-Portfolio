@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { useState } from "react";
-import { ThemeToggle } from "../../components/theme-toggle";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const links = [
   { label: "About", href: "#about" },
@@ -28,11 +28,12 @@ export function Navbar() {
         <Link
           href="/"
           className="font-heading text-xl font-bold tracking-tight"
-          aria-label="Abdullah jutt home"
+          aria-label="Abdullah Jutt home"
         >
           AJ<span className="text-primary">.</span>
         </Link>
 
+        {/* Desktop nav links */}
         <div className="hidden items-center gap-8 md:flex">
           {links.map((link) => (
             <Link
@@ -51,19 +52,25 @@ export function Navbar() {
           ))}
         </div>
 
+        {/* Desktop CTA + theme toggle */}
         <div className="hidden items-center gap-3 md:flex">
           <ThemeToggle />
           <Link
             href="#contact"
-            className="inline-flex h-10 items-center gap-2 rounded-full
+            className="group inline-flex h-10 items-center gap-2 rounded-full
               bg-primary px-5 text-sm font-semibold text-primary-foreground
-              transition-transform hover:-translate-y-0.5"
+              transition-all duration-300 hover:-translate-y-0.5"
           >
             Let&apos;s talk
-            <ArrowUpRight size={15} />
+            <ArrowUpRight
+              size={15}
+              className="transition-transform duration-300
+                group-hover:translate-x-1"
+            />
           </Link>
         </div>
 
+        {/* Mobile menu button + theme toggle */}
         <div className="flex items-center gap-2 md:hidden">
           <ThemeToggle />
           <button
@@ -72,13 +79,15 @@ export function Navbar() {
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((open) => !open)}
             className="inline-flex size-10 items-center justify-center
-              rounded-full border border-border"
+              rounded-full border border-border transition-all duration-300
+              hover:-translate-y-0.5 hover:border-primary hover:text-primary"
           >
             {menuOpen ? <X size={19} /> : <Menu size={19} />}
           </button>
         </div>
       </nav>
 
+      {/* Mobile menu */}
       {menuOpen && (
         <div
           className="border-t border-border/60 bg-background px-5 py-5
@@ -91,7 +100,7 @@ export function Navbar() {
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
                 className="py-2 text-sm text-muted-foreground
-                  transition-colors hover:text-foreground"
+                  transition-colors hover:text-primary"
               >
                 {link.label}
               </Link>
@@ -99,11 +108,17 @@ export function Navbar() {
             <Link
               href="#contact"
               onClick={() => setMenuOpen(false)}
-              className="inline-flex h-11 items-center justify-center gap-2
+              className="group inline-flex h-11 items-center justify-center gap-2
                 rounded-full bg-primary px-5 text-sm font-semibold
-                text-primary-foreground"
+                text-primary-foreground transition-all duration-300
+                hover:-translate-y-0.5"
             >
-              Let&apos;s talk <ArrowUpRight size={15} />
+              Let&apos;s talk
+              <ArrowUpRight
+                size={15}
+                className="transition-transform duration-300
+                  group-hover:translate-x-1"
+              />
             </Link>
           </div>
         </div>

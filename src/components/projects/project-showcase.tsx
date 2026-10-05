@@ -28,15 +28,15 @@ type ProjectShowcaseProps = {
 const layoutStyles = {
   web: {
     frame: "aspect-[16/9]",
-    image: "object-contain",
+    image: "object-cover",
   },
   mobile: {
-    frame: "aspect-[9/16] max-w-[360px] mx-auto",
-    image: "object-contain",
+    frame: "aspect-[9/16] max-w-[420px] mx-auto",
+    image: "object-cover",
   },
   desktop: {
     frame: "aspect-[16/10]",
-    image: "object-contain",
+    image: "object-cover",
   },
 };
 
@@ -101,7 +101,7 @@ export function ProjectShowcase({
 
   return (
     <article ref={container} className="group border-t border-border/60 py-16 sm:py-20 lg:py-28">
-      <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-center lg:gap-20">
+      <div className="grid gap-12 lg:grid-cols-[0.75fr_1.4fr] lg:items-center lg:gap-16">
         {/* Project information */}
         <div className="project-info">
           <div className="mb-8 flex items-center gap-4">
@@ -139,10 +139,13 @@ export function ProjectShowcase({
                 href={href}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex h-11 items-center gap-2 rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5"
+                className="group/btn inline-flex h-11 items-center gap-2 rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground transition-all duration-300 hover:-translate-y-0.5"
               >
                 View project
-                <ArrowUpRight size={15} />
+                <ArrowUpRight
+                  size={15}
+                  className="transition-transform duration-300 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1"
+                />
               </Link>
             )}
 
@@ -151,30 +154,27 @@ export function ProjectShowcase({
                 href={github}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex h-11 items-center gap-2 rounded-full border border-border px-5 text-sm font-semibold transition-colors hover:border-primary hover:text-primary"
+                className="group/btn inline-flex h-11 items-center gap-2 rounded-full border border-border px-5 text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:border-primary hover:text-primary"
               >
                 Source code
-                <ExternalLink size={14} />
+                <ExternalLink
+                  size={14}
+                  className="transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5"
+                />
               </Link>
             )}
           </div>
         </div>
 
-        {/* Project visual */}
+        {/* Project visual — no frame, no border, just the image */}
         <div className="project-visual relative">
-          <div
-            className={`project-frame relative overflow-hidden rounded-[1.5rem] border border-border/70 bg-card ${styles.frame}`}
-          >
+          <div className={`project-frame relative overflow-hidden ${styles.frame}`}>
             <img
               src={image}
               alt={imageAlt}
-              className={`h-full w-full object-contain transition-transform duration-700 ease-out group-hover:scale-[1.02] ${styles.image}`}
+              className={`h-full w-full transition-transform duration-700 ease-out group-hover:scale-[1.02] ${styles.image}`}
             />
-
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/20 to-transparent" />
           </div>
-
-          <div className="absolute -inset-3 -z-10 rounded-[2rem] border border-border/40 transition-colors duration-500 group-hover:border-primary/20" />
         </div>
       </div>
     </article>

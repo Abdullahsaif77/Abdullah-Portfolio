@@ -1,11 +1,15 @@
 "use client";
 
 import Link from "next/link";
+
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { SiGithub } from "@icons-pack/react-simple-icons";
+
 import { useRef } from "react";
+
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+
 import { prefersReducedMotion } from "@/lib/animations";
 
 gsap.registerPlugin(useGSAP);
@@ -21,7 +25,7 @@ function LinkedInIcon({ size = 18, className }: { size?: number; className?: str
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1-2.063-2.065 2.064 2.064 0 0 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.792 0 22.813 0h-.588z" />
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1-2.063-2.065 2.064 2.064 0 0 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
     </svg>
   );
 }
@@ -84,23 +88,13 @@ export function Hero() {
           "-=0.35",
         )
         .from(
-          ".hero-visual",
+          ".hero-mobile-visual",
           {
-            x: 50,
+            y: 40,
             opacity: 0,
-            scale: 0.96,
-            duration: 1,
+            duration: 0.9,
           },
-          "-=0.8",
-        )
-        .from(
-          ".hero-badge",
-          {
-            y: 20,
-            opacity: 0,
-            duration: 0.6,
-          },
-          "-=0.45",
+          "-=0.3",
         );
     },
     {
@@ -111,35 +105,82 @@ export function Hero() {
   return (
     <section
       ref={container}
-      className="relative isolate overflow-hidden"
+      id="top"
+      className="relative isolate overflow-hidden lg:min-h-[760px]"
       aria-labelledby="hero-title"
     >
+      {/* Base background — matches the site theme so empty space blends */}
+      <div aria-hidden="true" className="absolute inset-0 -z-20 bg-background" />
+
+      {/* ===================== */}
+      {/* DESKTOP BACKGROUND   */}
+      {/* ===================== */}
+
+      {/* Desktop — LIGHT theme banner */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-40 top-10 -z-10 size-[32rem] rounded-full bg-primary/10 blur-[120px]"
+        className="absolute inset-0 -z-10 hidden
+          bg-[url('/images/Banner_white.jfif')]
+          bg-cover bg-center bg-no-repeat
+          dark:hidden
+          lg:block"
       />
 
+      {/* Desktop — DARK theme banner */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-[-12rem] top-1/2 -z-10 size-[28rem] rounded-full bg-emerald-500/5 blur-[100px]"
+        className="absolute inset-0 -z-10 hidden
+          bg-[url('/images/Banner.png')]
+          bg-cover bg-center bg-no-repeat
+          dark:block"
       />
 
-      <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 pt-10 pb-16 sm:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-8 lg:px-12 lg:pt-14 lg:pb-20">
-        <div className="relative z-10">
-          <div className="hero-eyebrow mb-7 flex items-center gap-3">
+      {/* Desktop overlay — DARK theme only */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 hidden
+          bg-gradient-to-r from-[#020807]/80 via-[#020807]/40
+          via-40% to-transparent
+          dark:block"
+      />
+
+      {/* Bottom fade into the next section */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10
+          hidden h-32 bg-gradient-to-t from-background to-transparent
+          lg:block"
+      />
+
+      {/* Content wrapper */}
+      <div
+        className="mx-auto flex max-w-7xl flex-col px-5 pt-28 pb-0
+          sm:px-8 lg:min-h-[760px] lg:flex-row lg:items-center
+          lg:px-12 lg:pt-24 lg:pb-20"
+      >
+        {/* LEFT CONTENT */}
+        <div className="relative z-10 w-full max-w-3xl">
+          <div className="hero-eyebrow mb-6 flex items-center gap-3 sm:mb-7">
             <span
-              className="size-2 rounded-full bg-primary shadow-[0_0_14px_var(--color-primary)]"
+              className="size-2 rounded-full bg-primary
+                shadow-[0_0_14px_var(--color-primary)]"
               aria-hidden="true"
             />
 
-            <span className="text-xs font-medium uppercase tracking-[0.22em] text-muted-foreground sm:text-sm">
+            <span
+              className="text-[11px] font-medium uppercase
+                tracking-[0.22em] text-muted-foreground sm:text-sm"
+            >
               Software Engineer · Pakistan
             </span>
           </div>
 
           <h1
             id="hero-title"
-            className="font-heading text-[clamp(3rem,6.5vw,5.5rem)] font-semibold leading-[0.96] tracking-[-0.07em]"
+            className="font-heading text-[clamp(2.25rem,9vw,5.5rem)]
+              font-semibold leading-[0.98] tracking-[-0.06em]
+              sm:text-[clamp(3rem,6.5vw,5.5rem)] sm:leading-[0.96]
+              sm:tracking-[-0.07em]"
           >
             <span className="hero-title-line block">Software</span>
 
@@ -153,34 +194,49 @@ export function Hero() {
             </span>
           </h1>
 
-          <p className="hero-description mt-8 max-w-xl text-base leading-8 text-muted-foreground sm:text-lg">
+          <p
+            className="hero-description mt-6 max-w-xl text-[15px]
+              leading-7 text-muted-foreground sm:mt-8 sm:text-base
+              sm:leading-8 lg:text-lg"
+          >
             I&apos;m Abdullah, a software engineer building production web, mobile, and desktop
             systems — from logistics platforms and POS software to cross-platform business apps used
             in real operations every day.
           </p>
 
-          <div className="hero-actions mt-9 flex flex-wrap items-center gap-4">
+          <div className="hero-actions mt-8 flex flex-wrap items-center gap-3 sm:mt-9 sm:gap-4">
             <Link
               href="#projects"
-              className="group inline-flex h-12 items-center gap-2 rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground transition-all duration-300 hover:-translate-y-0.5"
+              className="group inline-flex h-11 items-center gap-2
+                rounded-full bg-primary px-5 text-sm font-semibold
+                text-primary-foreground transition-all duration-300
+                hover:-translate-y-0.5 sm:h-12 sm:px-6"
             >
               Explore my work
               <ArrowUpRight
                 size={16}
-                className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5"
+                className="transition-transform duration-300
+                  group-hover:translate-x-1 group-hover:-translate-y-1"
               />
             </Link>
 
             <Link
               href="#contact"
-              className="inline-flex h-12 items-center gap-2 rounded-full border border-border px-6 text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:border-primary hover:text-primary"
+              className="inline-flex h-11 items-center gap-2
+                rounded-full border border-border px-5 text-sm
+                font-semibold transition-all duration-300
+                hover:-translate-y-0.5 hover:border-primary
+                hover:text-primary sm:h-12 sm:px-6"
             >
               Get in touch
             </Link>
           </div>
 
-          <div className="hero-socials mt-12 flex items-center gap-5">
-            <span className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+          <div className="hero-socials mt-10 flex items-center gap-4 sm:mt-12 sm:gap-5">
+            <span
+              className="text-[11px] uppercase tracking-[0.18em]
+                text-muted-foreground sm:text-xs"
+            >
               Find me on
             </span>
 
@@ -189,79 +245,59 @@ export function Hero() {
               target="_blank"
               rel="noreferrer"
               aria-label="GitHub profile"
-              className="text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:text-primary"
+              className="text-muted-foreground transition-all duration-300
+                hover:-translate-y-0.5 hover:text-primary"
             >
               <SiGithub size={18} />
             </Link>
 
             <Link
-              href="https://www.linkedin.com/"
+              href="https://www.linkedin.com/in/abdullah-jutt7"
               target="_blank"
               rel="noreferrer"
               aria-label="LinkedIn profile"
-              className="text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:text-primary"
+              className="text-muted-foreground transition-all duration-300
+                hover:-translate-y-0.5 hover:text-primary"
             >
               <LinkedInIcon size={18} />
             </Link>
           </div>
         </div>
 
-        <div className="hero-visual relative mx-auto w-full max-w-[34rem]">
-          <div
-            aria-hidden="true"
-            className="absolute -inset-5 rotate-3 rounded-[2.5rem] border border-primary/20"
+        {/* MOBILE VISUAL — theme-aware */}
+        <div
+          aria-hidden="true"
+          className="hero-mobile-visual relative mt-12 w-full
+            overflow-hidden rounded-2xl border border-border/60
+            bg-background lg:hidden"
+        >
+          <img
+            src="/images/Banner_white.jfif"
+            alt=""
+            className="h-full w-full object-cover object-[90%_top] dark:hidden"
+            style={{ aspectRatio: "4 / 5" }}
+          />
+
+          <img
+            src="/images/Banner.png"
+            alt=""
+            className="hidden h-full w-full object-cover object-[90%_top] dark:block"
+            style={{ aspectRatio: "4 / 5" }}
           />
 
           <div
             aria-hidden="true"
-            className="absolute -inset-2 -rotate-2 rounded-[2.2rem] border border-border/70"
+            className="pointer-events-none absolute inset-x-0 bottom-0
+              h-24 bg-gradient-to-t from-background to-transparent"
           />
-
-          <div className="group relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-border/70 bg-card">
-            <div
-              aria-hidden="true"
-              className="absolute inset-0 bg-[radial-gradient(ellipse_at_65%_35%,rgba(16,185,129,0.2),transparent_45%),linear-gradient(145deg,transparent_20%,rgba(16,185,129,0.07))]"
-            />
-
-            <div
-              aria-hidden="true"
-              className="absolute inset-0 opacity-20 [background-image:linear-gradient(to_right,var(--color-border)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-border)_1px,transparent_1px)] [background-size:36px_36px]"
-            />
-
-            {/* Replace this placeholder with your portrait later. */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 p-8 text-center">
-              <div className="flex size-28 items-center justify-center rounded-full border border-primary/30 bg-primary/10 font-heading text-4xl font-semibold text-primary shadow-[0_0_70px_rgba(16,185,129,0.12)]">
-                AS
-              </div>
-
-              <span className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
-                Your portrait goes here
-              </span>
-            </div>
-
-            <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between rounded-2xl border border-border/70 bg-background/75 p-4 backdrop-blur-xl">
-              <div>
-                <p className="font-heading text-sm font-semibold">Abdullah Saif</p>
-
-                <p className="mt-1 text-xs text-muted-foreground">Software Engineer</p>
-              </div>
-
-              <span className="hero-badge flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-3 py-2 text-xs font-medium text-primary">
-                <span className="size-1.5 rounded-full bg-primary" aria-hidden="true" />
-                Open to opportunities
-              </span>
-            </div>
-          </div>
-
-          <div className="absolute -right-3 top-10 hidden rounded-xl border border-border bg-card/90 px-4 py-3 shadow-xl backdrop-blur sm:block">
-            <span className="font-mono text-xs text-primary">
-              {"<"}code /{">"}
-            </span>
-          </div>
         </div>
       </div>
 
-      <div className="mx-auto hidden max-w-7xl items-center gap-3 px-12 pb-8 text-xs uppercase tracking-[0.2em] text-muted-foreground sm:flex">
+      {/* Scroll indicator — desktop only */}
+      <div
+        className="mx-auto hidden max-w-7xl items-center gap-3 px-12 pb-8
+          text-xs uppercase tracking-[0.2em] text-muted-foreground lg:flex"
+      >
         <ArrowDown size={14} />
         Scroll to explore
       </div>

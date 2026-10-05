@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
@@ -14,7 +16,9 @@ export function Footer() {
       {/* Ambient glow */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -bottom-40 left-1/2 size-[500px] -translate-x-1/2 rounded-full bg-primary/10 blur-[140px]"
+        className="pointer-events-none absolute -bottom-40 left-1/2
+          size-[500px] -translate-x-1/2 rounded-full bg-primary/10
+          blur-[140px]"
       />
 
       <div className="relative mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
@@ -33,15 +37,20 @@ export function Footer() {
               </h2>
             </div>
 
+            {/* Back to top — circular button */}
             <Link
               href="#top"
-              className="group flex size-20 shrink-0 items-center justify-center rounded-full border border-border transition-all duration-300 hover:border-primary hover:bg-primary hover:text-primary-foreground sm:size-24"
+              className="group flex size-20 shrink-0 items-center justify-center
+                rounded-full border border-border transition-all duration-300
+                hover:-translate-y-1 hover:border-primary hover:bg-primary
+                hover:text-primary-foreground sm:size-24"
               aria-label="Back to top"
             >
               <ArrowUpRight
                 size={28}
                 strokeWidth={1.5}
-                className="transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1"
+                className="transition-transform duration-300
+                  group-hover:-translate-y-1 group-hover:translate-x-1"
               />
             </Link>
           </div>
@@ -50,7 +59,11 @@ export function Footer() {
         {/* Navigation + identity */}
         <div className="grid gap-12 py-12 lg:grid-cols-[1fr_auto] lg:items-end">
           <div>
-            <Link href="#top" className="font-heading text-2xl font-semibold tracking-[-0.05em]">
+            <Link
+              href="#top"
+              className="font-heading text-2xl font-semibold
+                tracking-[-0.05em]"
+            >
               Abdullah<span className="text-primary">.</span>
             </Link>
 
@@ -67,13 +80,17 @@ export function Footer() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="group inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                className="group inline-flex items-center gap-1.5 text-sm
+                  text-muted-foreground transition-colors duration-300
+                  hover:text-primary"
               >
                 {item.label}
 
                 <ArrowUpRight
                   size={12}
-                  className="opacity-0 transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-100"
+                  className="opacity-0 transition-all duration-300
+                    group-hover:-translate-y-0.5 group-hover:translate-x-0.5
+                    group-hover:opacity-100"
                 />
               </Link>
             ))}
@@ -81,7 +98,11 @@ export function Footer() {
         </div>
 
         {/* Bottom metadata */}
-        <div className="flex flex-col gap-4 border-t border-border/60 py-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+        <div
+          className="flex flex-col gap-4 border-t border-border/60 py-6
+          text-xs text-muted-foreground sm:flex-row sm:items-center
+          sm:justify-between"
+        >
           <p>© {new Date().getFullYear()} Abdullah Saif</p>
 
           <div className="flex items-center gap-6">
@@ -91,16 +112,16 @@ export function Footer() {
               href="https://github.com/Abdullahsaif77"
               target="_blank"
               rel="noreferrer"
-              className="transition-colors hover:text-primary"
+              className="transition-colors duration-300 hover:text-primary"
             >
               GitHub
             </Link>
 
             <Link
-              href="https://www.linkedin.com"
+              href="https://www.linkedin.com/in/abdullah-jutt7"
               target="_blank"
               rel="noreferrer"
-              className="transition-colors hover:text-primary"
+              className="transition-colors duration-300 hover:text-primary"
             >
               LinkedIn
             </Link>
