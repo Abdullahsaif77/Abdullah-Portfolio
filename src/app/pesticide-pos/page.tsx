@@ -15,8 +15,15 @@ const pesticide: CaseStudyProject = {
   description:
     "A desktop point-of-sale and business management application built for a pesticide shop, covering sales, purchases, inventory, customers, suppliers, ledgers, expenses, reports, and reliable offline data management.",
 
-  heroImage: "/projects/pos/hero.png",
+  heroImage: "/projects/pos/hero2.png",
   heroImageAlt: "Pesticide Shop POS desktop application",
+
+  /**
+   * Desktop application → render the hero in landscape ratio.
+   * (This is also the default, but declaring it explicitly
+   * keeps intent clear across the codebase.)
+   */
+  heroAspect: "landscape",
 
   technologies: ["Electron", "React", "Vite", "JavaScript", "SQLite", "Node.js", "Cloud Backup"],
 
@@ -92,50 +99,46 @@ const pesticide: CaseStudyProject = {
     services: ["Cloud Backups", "Local File Storage"],
   },
 
+  /**
+   * Each decision must have: title, reasoning, outcome.
+   */
   decisions: [
     {
       title: "Local-first business data",
-      description:
+      reasoning:
         "SQLite was used as the local data layer so the application could continue operating without relying on an internet connection.",
+      outcome:
+        "The shop stays fully operational during internet outages — sales, inventory, and ledger data remain available on-device.",
     },
     {
       title: "Desktop architecture",
-      description:
+      reasoning:
         "Electron provides the desktop application environment while React handles the user interface and application experience.",
+      outcome:
+        "A native-feeling desktop app with web-speed development — installable, offline-capable, and cross-platform.",
     },
     {
       title: "Data protection through backups",
-      description:
+      reasoning:
         "Cloud backups provide an additional layer of protection for business records stored locally on the shop computer.",
+      outcome:
+        "Business records survive hardware failure — local SQLite data can be restored from cloud backups.",
     },
     {
       title: "Business-focused workflows",
-      description:
+      reasoning:
         "The application was structured around actual shop operations rather than generic CRUD screens, connecting sales, purchases, inventory, ledgers, expenses, and reporting.",
+      outcome:
+        "The interface mirrors how the shop actually runs, reducing training time and making daily operations faster.",
     },
   ],
 
   gallery: [
-    {
-      src: "/projects/pos/screen-1.png",
-      alt: "Pesticide Shop POS dashboard",
-      group: "Desktop App",
-    },
-    {
-      src: "/projects/pos/screen-2.png",
-      alt: "Pesticide Shop POS sales interface",
-      group: "Desktop App",
-    },
-    {
-      src: "/projects/pos/screen-3.png",
-      alt: "Pesticide Shop POS inventory interface",
-      group: "Desktop App",
-    },
-    {
-      src: "/projects/pos/screen-4.png",
-      alt: "Pesticide Shop POS business management interface",
-      group: "Desktop App",
-    },
+    { src: "/projects/pos/hero2.png", alt: "Dashboard", group: "Desktop" },
+    { src: "/projects/pos/screen-1.jpeg", alt: "Dashboard", group: "Desktop" },
+    { src: "/projects/pos/screen-2.jpeg", alt: "Sales", group: "Desktop" },
+    { src: "/projects/pos/screen-3.jpeg", alt: "Inventory", group: "Desktop" },
+    { src: "/projects/pos/screen-4.jpeg", alt: "Management", group: "Desktop" },
   ],
 
   github: "https://github.com/Abdullahsaif77/pesticide-pos",

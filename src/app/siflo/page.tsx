@@ -18,6 +18,11 @@ const siflo: CaseStudyProject = {
   heroImage: "/projects/siflo/hero.png",
   heroImageAlt: "Siflo point-of-sale application",
 
+  /**
+   * Mobile-first product → render the hero in portrait ratio.
+   */
+  heroAspect: "portrait",
+
   technologies: [
     "React Native",
     "Expo",
@@ -104,47 +109,65 @@ const siflo: CaseStudyProject = {
     services: ["PDF Invoice Generation", "SecureStore", "Offline Data Layer"],
   },
 
+  /**
+   * Each decision must have: title, reasoning, outcome.
+   * The "reasoning" replaces the old "description" field,
+   * and "outcome" is what the decision delivered.
+   */
   decisions: [
     {
       title: "Offline-first data model",
-      description:
+      reasoning:
         "Local SQLite storage allows important POS data to remain available without requiring a constant internet connection.",
+      outcome:
+        "The POS keeps functioning during connectivity outages — sales, inventory, and customer records stay usable on-device.",
     },
     {
       title: "Local + cloud data layers",
-      description:
+      reasoning:
         "The application separates local persistence from the online MongoDB Atlas backend, creating a foundation for reliable synchronization between the device and server.",
+      outcome:
+        "Business data is durable across devices and sessions, with a clear boundary between on-device state and remote state.",
     },
     {
       title: "Centralized API state",
-      description:
+      reasoning:
         "RTK Query is used to manage communication with the backend while keeping remote data fetching and caching organized.",
+      outcome:
+        "Network calls are cached, deduplicated, and invalidated consistently — reducing redundant requests and stale UI.",
     },
     {
       title: "Document generation on the backend",
-      description:
+      reasoning:
         "Invoice PDF generation is handled as part of the backend workflow so invoices can be produced consistently from business transaction data.",
+      outcome:
+        "Invoices render identically regardless of device, and the client stays lightweight.",
     },
   ],
 
   gallery: [
     {
-      src: "/projects/siflo/screen-1.png",
+      src: "/projects/siflo/hero.png",
       alt: "Siflo POS application dashboard",
       group: "POS App",
     },
     {
-      src: "/projects/siflo/screen-2.png",
+      src: "/projects/siflo/screen-1.jpeg",
+      alt: "Siflo POS application dashboard",
+      group: "POS App",
+    },
+    {
+      src: "/projects/siflo/screen-2.jpeg",
       alt: "Siflo sales interface",
       group: "POS App",
     },
     {
-      src: "/projects/siflo/screen-3.png",
+      src: "/projects/siflo/screen-3.jpeg",
       alt: "Siflo products interface",
       group: "POS App",
     },
     {
-      src: "/projects/siflo/screen-4.png",
+      src: "/projects/siflo/screen-4.jpeg",
       alt: "Siflo customer and supplier management",
       group: "POS App",
     },

@@ -10,7 +10,17 @@ type CaseStudyHeroProps = {
   project: CaseStudyProject;
 };
 
+const aspectClasses = {
+  landscape: "aspect-[16/9]",
+  portrait: "aspect-[9/16]",
+  square: "aspect-square",
+} as const;
+
 export function CaseStudyHero({ project }: CaseStudyHeroProps) {
+  const heroAspect = project.heroAspect ?? "landscape";
+  const isPortrait = heroAspect === "portrait";
+  const aspectClass = aspectClasses[heroAspect];
+
   return (
     <section className="relative">
       <div className="mx-auto max-w-7xl px-5 pb-20 pt-16 sm:px-8 lg:px-12 lg:pb-28 lg:pt-20">
@@ -51,21 +61,27 @@ export function CaseStudyHero({ project }: CaseStudyHeroProps) {
         </div>
 
         {/* Hero image */}
-        <div className="mt-16 overflow-hidden border border-border bg-card sm:mt-20">
-          <div className="relative aspect-[16/9]">
-            <Image
-              src={project.heroImage}
-              alt={project.heroImageAlt}
-              fill
-              priority
-              sizes="(max-width: 768px) 100vw, 1200px"
-              className="object-cover"
-            />
+        <div className={`mt-16 sm:mt-20 ${isPortrait ? "mx-auto w-full max-w-[420px]" : "w-full"}`}>
+          <div className="overflow-hidden rounded-2xl border border-border bg-card">
+            <div className={`relative ${aspectClass}`}>
+              <Image
+                src={project.heroImage}
+                alt={project.heroImageAlt}
+                fill
+                priority
+                sizes={
+                  isPortrait
+                    ? "(max-width: 768px) 100vw, 420px"
+                    : "(max-width: 768px) 100vw, 1200px"
+                }
+                className="object-cover object-top"
+              />
 
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/20 to-transparent"
-            />
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/20 to-transparent"
+              />
+            </div>
           </div>
         </div>
 

@@ -30,6 +30,8 @@ export type CaseStudyDecision = {
   outcome: string;
 };
 
+export type CaseStudyHeroAspect = "landscape" | "portrait" | "square";
+
 export type CaseStudyProject = {
   number: string;
   category: string;
@@ -38,6 +40,14 @@ export type CaseStudyProject = {
 
   heroImage: string;
   heroImageAlt: string;
+
+  /**
+   * Aspect ratio for the hero image.
+   * - "landscape" (default) → 16/9, best for web & desktop
+   * - "portrait"            → 9/16, best for mobile apps
+   * - "square"              → 1/1
+   */
+  heroAspect?: CaseStudyHeroAspect;
 
   technologies: string[];
 
@@ -79,23 +89,16 @@ type ProjectCaseStudyProps = {
 };
 
 export function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
-  // Derive the section number dynamically so it stays consistent
-  // even if optional sections are hidden.
   let section = 0;
   const nextSection = () => String(++section).padStart(2, "0");
 
-  const heroNumber = nextSection(); // 01
-  const galleryNumber = nextSection(); // 02
-  const overviewNumber = nextSection(); // 03
-  const ecosystemNumber = project.ecosystem?.length ? nextSection() : null; // 04
-  const challengeNumber = nextSection(); // 05
-  const featuresNumber = nextSection(); // 06
-  const workflowsNumber = nextSection(); // 07
-  const scalingNumber = nextSection(); // 08
-  const architectureNumber = project.architecture ? nextSection() : null; // 09
-  const techStackNumber = nextSection(); // 10
-  const roleNumber = nextSection(); // 11
-  const decisionsNumber = project.decisions?.length ? nextSection() : null; // 12
+  // Sections the parent owns and renders inline.
+  // Children (Hero, Gallery, Overview, Features, etc.) render their
+  // own internal numbering — they're not part of this counter.
+  const ecosystemNumber = project.ecosystem?.length ? nextSection() : null;
+  const challengeNumber = nextSection();
+  const roleNumber = nextSection();
+  const decisionsNumber = project.decisions?.length ? nextSection() : null;
 
   return (
     <main className="overflow-hidden">
@@ -113,24 +116,16 @@ export function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
         </Link>
       </div>
 
-      {/* ───────────────────────────────────────────── */}
-      {/* 01 — Hero                                     */}
-      {/* ───────────────────────────────────────────── */}
+      {/* 01 — Hero */}
       <CaseStudyHero project={project} />
 
-      {/* ───────────────────────────────────────────── */}
-      {/* 02 — Product Showcase (Gallery)               */}
-      {/* ───────────────────────────────────────────── */}
-      <CaseStudyGallery images={project.gallery} number={galleryNumber} />
+      {/* 02 — Product Showcase (Gallery) */}
+      <CaseStudyGallery images={project.gallery} />
 
-      {/* ───────────────────────────────────────────── */}
-      {/* 03 — Overview                                 */}
-      {/* ───────────────────────────────────────────── */}
+      {/* 03 — Overview */}
       <CaseStudyOverview project={project} />
 
-      {/* ───────────────────────────────────────────── */}
-      {/* 04 — Product Ecosystem                        */}
-      {/* ───────────────────────────────────────────── */}
+      {/* 04 — Product Ecosystem */}
       {ecosystemNumber && project.ecosystem && (
         <section className="border-t border-border">
           <div className="mx-auto max-w-7xl px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
@@ -180,9 +175,7 @@ export function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
         </section>
       )}
 
-      {/* ───────────────────────────────────────────── */}
-      {/* 05 — Challenge + Solution                     */}
-      {/* ───────────────────────────────────────────── */}
+      {/* 05 — Challenge + Solution */}
       <section className="border-t border-border">
         <div className="mx-auto max-w-7xl px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
           <div className="grid gap-16 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
@@ -217,36 +210,22 @@ export function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
         </div>
       </section>
 
-      {/* ───────────────────────────────────────────── */}
-      {/* 06 — Features                                 */}
-      {/* ───────────────────────────────────────────── */}
-      <CaseStudyFeatures features={project.features} number={featuresNumber} />
+      {/* Features — child owns its number */}
+      <CaseStudyFeatures features={project.features} />
 
-      {/* ───────────────────────────────────────────── */}
-      {/* 07 — Core Workflows                           */}
-      {/* ───────────────────────────────────────────── */}
-      <CaseStudyWorkflows number={workflowsNumber} />
+      {/* Core Workflows — child owns its number */}
+      <CaseStudyWorkflows />
 
-      {/* ───────────────────────────────────────────── */}
-      {/* 08 — Scaling & Performance                    */}
-      {/* ───────────────────────────────────────────── */}
-      <CaseStudyScaling number={scalingNumber} />
+      {/* Scaling & Performance — child owns its number */}
+      <CaseStudyScaling />
 
-      {/* ───────────────────────────────────────────── */}
-      {/* 09 — Architecture                             */}
-      {/* ───────────────────────────────────────────── */}
-      {architectureNumber && project.architecture && (
-        <CaseStudyArchitecture architecture={project.architecture} number={architectureNumber} />
-      )}
+      {/* Architecture — child owns its number */}
+      {project.architecture && <CaseStudyArchitecture architecture={project.architecture} />}
 
-      {/* ───────────────────────────────────────────── */}
-      {/* 10 — Tech Stack                               */}
-      {/* ───────────────────────────────────────────── */}
-      <CaseStudyTechStack technologies={project.technologies} number={techStackNumber} />
+      {/* Tech Stack — child owns its number */}
+      <CaseStudyTechStack technologies={project.technologies} />
 
-      {/* ───────────────────────────────────────────── */}
-      {/* 11 — My Role                                  */}
-      {/* ───────────────────────────────────────────── */}
+      {/* My Role */}
       <section className="border-t border-border">
         <div className="mx-auto max-w-7xl px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
           <div className="grid gap-16 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
@@ -283,9 +262,7 @@ export function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
         </div>
       </section>
 
-      {/* ───────────────────────────────────────────── */}
-      {/* 12 — Engineering Decisions                    */}
-      {/* ───────────────────────────────────────────── */}
+      {/* Engineering Decisions */}
       {decisionsNumber && project.decisions && (
         <section className="border-t border-border">
           <div className="mx-auto max-w-7xl px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
@@ -333,9 +310,7 @@ export function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
         </section>
       )}
 
-      {/* ───────────────────────────────────────────── */}
-      {/* 13 — CTA                                      */}
-      {/* ───────────────────────────────────────────── */}
+      {/* CTA */}
       <section className="border-t border-border">
         <div className="mx-auto max-w-7xl px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
           <div className="flex flex-col justify-between gap-12 md:flex-row md:items-end">
