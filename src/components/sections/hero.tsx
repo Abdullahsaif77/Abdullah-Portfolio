@@ -220,6 +220,23 @@ export function Hero() {
               />
             </Link>
 
+            <a
+              href="public/Abdullah_Jutt_ATS_Resume.pdf"
+              download="Abdullah-Jutt-Resume.pdf"
+              className="group inline-flex h-11 items-center gap-2
+                rounded-full border border-border px-5 text-sm
+                font-semibold transition-all duration-300
+                hover:-translate-y-0.5 hover:border-primary
+                hover:text-primary sm:h-12 sm:px-6"
+            >
+              Download Resume
+              <ArrowDown
+                size={16}
+                className="transition-transform duration-300
+                  group-hover:translate-y-0.5"
+              />
+            </a>
+
             <Link
               href="#contact"
               className="inline-flex h-11 items-center gap-2
