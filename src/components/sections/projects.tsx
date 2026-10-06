@@ -19,9 +19,11 @@ const projects = [
     technologies: ["React Native", "Expo", "Node.js", "MongoDB", "Socket.IO", "Stripe"],
     image: "/projects/cargoza/hero.png",
     imageAlt: "Cargoza logistics platform interface",
-    href: "https://cargoza.example.com",
+    caseStudyHref: "/cargoza",
+    liveUrl: "https://cargoza.example.com",
     github: "https://github.com/Abdullahsaif77/cargoza",
     layout: "web" as const,
+    accent: "primary" as const,
   },
   {
     number: "02",
@@ -32,9 +34,11 @@ const projects = [
     technologies: ["React Native", "Expo", "Express", "MongoDB", "RTK Query", "SQLite"],
     image: "/projects/siflo/hero.png",
     imageAlt: "Siflo point of sale application interface",
-    href: "https://siflo.example.com",
+    caseStudyHref: "/siflo",
+    liveUrl: "https://siflo.example.com",
     github: "https://github.com/Abdullahsaif77/siflo",
     layout: "mobile" as const,
+    accent: "emerald" as const,
   },
   {
     number: "03",
@@ -45,9 +49,11 @@ const projects = [
     technologies: ["React", "Electron", "Vite", "SQLite", "Node.js"],
     image: "/projects/pos/hero2.png",
     imageAlt: "Pesticide Shop POS application interface",
-    href: "https://pesticide-pos.example.com",
+    caseStudyHref: "/pesticide-pos",
+    liveUrl: "https://pesticide-pos.example.com",
     github: "https://github.com/Abdullahsaif77/pesticide-pos",
     layout: "desktop" as const,
+    accent: "teal" as const,
   },
 ];
 

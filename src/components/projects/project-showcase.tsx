@@ -1,11 +1,17 @@
 "use client";
 
 import { useRef } from "react";
+
 import Link from "next/link";
+
 import { ArrowUpRight, ExternalLink } from "lucide-react";
+
 import gsap from "gsap";
+
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 import { useGSAP } from "@gsap/react";
+
 import { prefersReducedMotion } from "@/lib/animations";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -20,10 +26,28 @@ type ProjectShowcaseProps = {
   technologies: string[];
   image: string;
   imageAlt: string;
-  href?: string;
+
+  /**
+   * Dedicated case-study page.
+   * Example: /cargoza
+   */
+  caseStudyHref: string;
+
+  /**
+   * Optional live/deployed project URL.
+   */
+  liveUrl?: string;
+
+  /**
+   * Optional GitHub repository.
+   */
   github?: string;
+
   layout: ProjectLayout;
-  /** Optional accent override. Defaults to theme primary. */
+
+  /**
+   * Optional accent override. Defaults to theme primary.
+   */
   accent?: "primary" | "emerald" | "teal" | "cyan";
 };
 
@@ -51,6 +75,7 @@ const accents = {
     number: "text-primary",
     button: "bg-primary text-primary-foreground",
   },
+
   emerald: {
     glow: "bg-emerald-500/20",
     wash: "from-emerald-500/15 via-emerald-500/[0.03]",
@@ -59,6 +84,7 @@ const accents = {
     number: "text-emerald-400",
     button: "bg-emerald-500 text-black",
   },
+
   teal: {
     glow: "bg-teal-500/20",
     wash: "from-teal-500/15 via-teal-500/[0.03]",
@@ -67,6 +93,7 @@ const accents = {
     number: "text-teal-400",
     button: "bg-teal-500 text-black",
   },
+
   cyan: {
     glow: "bg-cyan-500/20",
     wash: "from-cyan-500/15 via-cyan-500/[0.03]",
@@ -85,12 +112,14 @@ export function ProjectShowcase({
   technologies,
   image,
   imageAlt,
-  href,
+  caseStudyHref,
+  liveUrl,
   github,
   layout,
   accent = "primary",
 }: ProjectShowcaseProps) {
   const container = useRef<HTMLElement>(null);
+
   const styles = layoutStyles[layout];
   const a = accents[accent];
 
@@ -104,7 +133,9 @@ export function ProjectShowcase({
           start: "top 78%",
           once: true,
         },
-        defaults: { ease: "power3.out" },
+        defaults: {
+          ease: "power3.out",
+        },
       });
 
       tl.from(".project-info", {
@@ -131,7 +162,7 @@ export function ProjectShowcase({
           "-=0.8",
         );
 
-      // Subtle parallax on the image inside the frame
+      // Subtle parallax on the image.
       gsap.to(".project-image", {
         yPercent: 6,
         ease: "none",
@@ -143,7 +174,9 @@ export function ProjectShowcase({
         },
       });
     },
-    { scope: container },
+    {
+      scope: container,
+    },
   );
 
   return (
@@ -151,18 +184,20 @@ export function ProjectShowcase({
       ref={container}
       className="group relative border-t border-border/60 py-16 sm:py-20 lg:py-28"
     >
-      {/* Section-level accent glow — always on, softer */}
+      {/* Section-level accent glow */}
       <div
         aria-hidden="true"
         className={`pointer-events-none absolute right-0 top-1/3 -z-10 size-[26rem] rounded-full ${a.glow} opacity-60 blur-[120px]`}
       />
 
       <div className="grid gap-12 lg:grid-cols-[0.75fr_1.4fr] lg:items-center lg:gap-16">
-        {/* ────────── Project information ────────── */}
+        {/* Project information */}
         <div className="project-info">
           <div className="mb-8 flex items-center gap-4">
             <span className={`font-mono text-xs ${a.number}`}>{number}</span>
+
             <span className={`h-px w-10 ${a.glow}`} />
+
             <span className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
               {category}
             </span>
@@ -170,6 +205,7 @@ export function ProjectShowcase({
 
           <h3 className="relative font-heading text-[clamp(2.8rem,5vw,5rem)] font-semibold leading-[0.95] tracking-[-0.055em]">
             {title}
+
             <span
               aria-hidden="true"
               className={`ml-2 inline-block size-2 translate-y-[-0.6em] rounded-full ${a.dot}`}
@@ -180,6 +216,7 @@ export function ProjectShowcase({
             {description}
           </p>
 
+          {/* Technologies */}
           <div className="mt-8 flex flex-wrap gap-2">
             {technologies.map((technology) => (
               <span
@@ -191,22 +228,37 @@ export function ProjectShowcase({
             ))}
           </div>
 
+          {/* Actions */}
           <div className="mt-9 flex flex-wrap gap-3">
-            {href && (
+            {/* Case Study */}
+            <Link
+              href={caseStudyHref}
+              className={`group/btn inline-flex h-11 items-center gap-2 rounded-full ${a.button} px-5 text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5`}
+            >
+              View Case Study
+              <ArrowUpRight
+                size={15}
+                className="transition-transform duration-300 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1"
+              />
+            </Link>
+
+            {/* Live Project - only shown when deployed */}
+            {liveUrl && (
               <Link
-                href={href}
+                href={liveUrl}
                 target="_blank"
                 rel="noreferrer"
-                className={`group/btn inline-flex h-11 items-center gap-2 rounded-full ${a.button} px-5 text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5`}
+                className={`group/btn inline-flex h-11 items-center gap-2 rounded-full border border-border bg-background/40 px-5 text-sm font-semibold backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 ${a.tagHover}`}
               >
-                View project
-                <ArrowUpRight
-                  size={15}
-                  className="transition-transform duration-300 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1"
+                Live Project
+                <ExternalLink
+                  size={14}
+                  className="transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5"
                 />
               </Link>
             )}
 
+            {/* GitHub */}
             {github && (
               <Link
                 href={github}
@@ -214,7 +266,7 @@ export function ProjectShowcase({
                 rel="noreferrer"
                 className={`group/btn inline-flex h-11 items-center gap-2 rounded-full border border-border bg-background/40 px-5 text-sm font-semibold backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 ${a.tagHover}`}
               >
-                Source code
+                Source Code
                 <ExternalLink
                   size={14}
                   className="transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5"
@@ -224,39 +276,39 @@ export function ProjectShowcase({
           </div>
         </div>
 
-        {/* ────────── Project visual — no border, just glow + image ────────── */}
+        {/* Project visual */}
         <div className="project-visual relative">
-          {/* Ambient glow behind the image — always on */}
+          {/* Ambient glow */}
           <div
             aria-hidden="true"
             className={`pointer-events-none absolute -inset-10 -z-10 rounded-full ${a.glow} opacity-70 blur-3xl`}
           />
 
-          {/* Framed image — borderless, no rounded frame chrome */}
+          {/* Image */}
           <div className={`project-frame relative overflow-hidden ${styles.frame}`}>
-            {/* Top inner highlight line — subtle, no border */}
+            {/* Subtle highlight */}
             <span
               aria-hidden="true"
               className="pointer-events-none absolute inset-x-6 top-0 z-20 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent"
             />
 
-            {/* The image */}
             <img
               src={image}
               alt={imageAlt}
               className={`project-image relative h-full w-full transition-transform duration-700 ease-out group-hover:scale-[1.02] ${styles.image}`}
             />
 
-            {/* Bottom gradient scrim — appears on hover only */}
+            {/* Bottom gradient */}
             <div
               aria-hidden="true"
               className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-1/3 bg-gradient-to-t from-black/30 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
             />
           </div>
 
-          {/* Caption row under the image */}
+          {/* Caption */}
           <div className="mt-4 flex items-center justify-between px-1 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
             <span>{category}</span>
+
             <span className={a.number}>{number}</span>
           </div>
         </div>
